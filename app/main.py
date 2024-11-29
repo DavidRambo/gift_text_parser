@@ -23,7 +23,13 @@ app.add_middleware(
 
 
 class InputText(pydantic.BaseModel):
-    pass
+    """Represents the data to be received from the client.
+
+    Attributes:
+        text: a string in which gift ideas are separated by a blank line
+    """
+
+    text: str
 
 
 class ParsedJSON(pydantic.BaseModel):
