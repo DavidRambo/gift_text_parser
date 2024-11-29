@@ -8,6 +8,8 @@ import pydantic
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import Field
 
+import utils
+
 
 UrlStr = Annotated[pydantic.AnyUrl, pydantic.AfterValidator(str)]
 
@@ -58,3 +60,14 @@ class GiftsList(pydantic.BaseModel):
     """
 
     data: list[ParsedGift]
+
+
+@app.post("/parse-text", response_model=GiftsList)
+def parse_text(text: InputText):
+    if len(text) == 0:
+        raise fastapi.HTTPException(
+            status_code=fastapi.status.HTTP_400_BAD_REQUEST,
+            detail="Empty request body.",
+        )
+
+    return GiftsList(data=utils.parse_text(text))
