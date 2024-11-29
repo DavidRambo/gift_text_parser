@@ -6,7 +6,40 @@ web app.
 
 ## Setup and Usage
 
-### Formatting the Submitted String
+### Install and Start the FastAPI server
+
+Create and activate a virtual environment and then install the dependencies.
+There are different options to do so, as the dependencies are listed in `pyproject.toml`, `requirements.txt`, and `uv.lock`.
+Note that the `requirements.txt` file excludes the editable installation of the gift-text-parser package itself.
+
+With pip:
+
+```bash
+pip install -r requirements.txt
+```
+
+With [uv](https://docs.astral.sh/uv/guides/projects/):
+
+```bash
+uv sync
+```
+
+To start the service, make sure a virtual environment is active with all dependencies installed, then, from the top-level directory, run:
+
+```bash
+fastapi run gift_text_parser/main.py
+```
+
+By default, it runs on localhost port 8000.
+The port can be set by passing `--port <PORT>` to the above command.
+
+### Example Request
+
+To use the API, submit a POST request to the following endpoint with a string of text assigned to `text` in the body:
+
+`POST http://localhost:8000/parse-text`
+
+#### Formatting the Submitted String
 
 Each gift idea is separated by one or more blank lines, i.e. "\n\n".
 A gift idea comprises three fields:
