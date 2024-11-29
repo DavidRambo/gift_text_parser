@@ -8,21 +8,24 @@ web app.
 
 ### Formatting the Submitted String
 
-Each gift idea is separated by a blank line, i.e. "\n\n".
-There are three fields to a gift idea:
+Each gift idea is separated by one or more blank lines, i.e. "\n\n".
+A gift idea comprises three fields:
 
 - what: required, it names the gift idea
 - link: optional, a URL to the item or that explains it
 - details: optional, additional information that may be relevant to the gift idea
-  Thus, an example submission string could be:
+
+Thus, an example submission string could be:
 
 ```
+"""
 t-shirt
 size medium
 
 Structure and Interpretation of Computer Programs
 https://bookshop.org/p/books/structure-and-interpretation-of-computer-programs-gerald-jay-sussman/11620466?ean=9780262510875
 2nd ed.
+"""
 ```
 
 The result would be:
@@ -39,5 +42,6 @@ The result would be:
 ```
 
 The parser always treats the first line of a new paragraph as the "what".
-It will determine whether any additional non-blank lines begin with "https://".
+It will determine whether the next additional non-blank line begins with "https://".
 The rest of the lines will be included as details.
+Thus, URLs may be included in the details portion of the gift idea as plain text.
