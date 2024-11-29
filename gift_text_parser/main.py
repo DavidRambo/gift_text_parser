@@ -8,7 +8,7 @@ import pydantic
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import Field
 
-import utils
+from . import utils
 
 
 UrlStr = Annotated[pydantic.AnyUrl, pydantic.AfterValidator(str)]
