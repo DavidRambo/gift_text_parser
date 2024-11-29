@@ -65,9 +65,9 @@ def parse_json(wishlist: list[dict[str, str | None]]) -> str:
 
     for gift in wishlist:
         result += gift["what"]
-        if "link" in gift:
+        if gift["link"] is not None:
             result += "\n" + gift["link"]
-        if "details" in gift:
+        if gift["details"] is not None:
             result += "\n" + gift["details"]
         result += "\n\n"
 
