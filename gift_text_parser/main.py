@@ -71,3 +71,10 @@ def parse_text(text: InputText):
         )
 
     return GiftsList(data=utils.parse_text(text.text))
+
+
+@app.post("/parse-wishlist", response_model=InputText)
+def parse_wishlist(wishlist: GiftsList):
+    if len(wishlist.data == 0):
+        return InputText(text="Your wish list is empty.")
+    return InputText(text=utils.parse_json(wishlist.data))
