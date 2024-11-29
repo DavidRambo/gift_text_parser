@@ -1,9 +1,15 @@
 """Text parser for adding multiple gift ideas in a single string."""
 
+from typing import Annotated
+
 import fastapi
 import pydantic
 
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import Field
+
+
+UrlStr = Annotated[pydantic.AnyUrl, pydantic.AfterValidator(str)]
 
 app = fastapi.FastAPI()
 
@@ -32,5 +38,23 @@ class InputText(pydantic.BaseModel):
     text: str
 
 
-class ParsedJSON(pydantic.BaseModel):
-    pass
+class ParsedGift(pydantic.BaseModel):
+    """Represents the data to be returned to the client
+
+    Attributes:
+        parsed_text: a JSON representation of a gift idea
+    """
+
+    what: str = Field(min_length=1, max_length=255)
+    link: UrlStr | None = Field(default=None)
+    details: str | None = Field(default=None)
+
+
+class GiftsList(pydantic.BaseModel):
+    """Represents the JSON array of gift ideas parsed from the provided text.
+
+    Attributes:
+        data: a JSON array in which the objects conform to the ParsedGift model
+    """
+
+    data: list[ParsedGift]
