@@ -2,7 +2,7 @@
 
 import pytest
 
-from gift_text_parser.utils import parse_text
+from gift_text_parser.utils import parse_text, parse_json
 
 
 @pytest.mark.parametrize(
@@ -141,3 +141,27 @@ def test_remove_trailing_newline():
         {"what": "t-shirt", "link": "https://example.com", "details": "Size medium"}
     ]
     assert expected == parse_text(input)
+
+
+def test_convert_to_text():
+    input = [
+        {
+            "what": "t-shirt",
+            "link": "https://example.com",
+            "details": "Size medium",
+        },
+        {
+            "what": "SICP",
+            "link": "https://bookshop.org/p/books/structure-and-interpretation-of-computer-programs-gerald-jay-sussman/11620466?ean=9780262510875",
+            "details": "2nd ed.",
+        },
+    ]
+    # expected = "t-shirt\nhttps://example.com\nSize medium\n\nSICP\nhttps://bookshop.org/p/books/structure-and-interpretation-of-computer-programs-gerald-jay-sussman/11620466?ean=9780262510875\n2nd ed."
+    expected = """t-shirt
+https://example.com
+Size medium
+
+SICP
+https://bookshop.org/p/books/structure-and-interpretation-of-computer-programs-gerald-jay-sussman/11620466?ean=9780262510875
+2nd ed."""
+    assert expected == parse_json(input)

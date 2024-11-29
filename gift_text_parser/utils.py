@@ -57,3 +57,18 @@ def parse_extra(text: str) -> tuple[str | None, str | None]:
         details = text if text else None
 
     return (link, details)
+
+
+def parse_json(wishlist: list[dict[str, str | None]]) -> str:
+    """Converts a wish list into plain text format."""
+    result = ""
+
+    for gift in wishlist:
+        result += gift["what"]
+        if "link" in gift:
+            result += "\n" + gift["link"]
+        if "details" in gift:
+            result += "\n" + gift["details"]
+        result += "\n\n"
+
+    return result.rstrip()
