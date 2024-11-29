@@ -62,6 +62,10 @@ def test_what_link(input: str, output: list[dict]):
             [{"what": "t-shirt", "link": None, "details": "Size medium"}],
         ],
         [
+            "t-shirt\nSize medium\nAny colors.",
+            [{"what": "t-shirt", "link": None, "details": "Size medium\nAny colors."}],
+        ],
+        [
             "t-shirt\n\nSICP\n2nd ed.",
             [
                 {"what": "t-shirt", "link": None, "details": None},
