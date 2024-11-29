@@ -39,6 +39,9 @@ To use the API, submit a POST request to the following endpoint with a string of
 
 `POST http://localhost:8000/parse-text`
 
+The data returned is an object with the key `data` and a value that is the JSON array of parsed gift ideas.
+Thus, in order to access the JSON array in a response provided via the Fetch API, one would use `response.data.data`.
+
 #### Formatting the Submitted String
 
 Each gift idea is separated by one or more blank lines, i.e. "\n\n".
