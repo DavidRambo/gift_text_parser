@@ -127,8 +127,16 @@ def test_what_link_details(input: str, output: list[dict]):
     assert output == parse_text(input)
 
 
-def test_cariage_return():
+def test_carriage_return():
     input = "t-shirt\r\nhttps://example.com\r\nSize medium"
+    expected = [
+        {"what": "t-shirt", "link": "https://example.com", "details": "Size medium"}
+    ]
+    assert expected == parse_text(input)
+
+
+def test_remove_trailing_newline():
+    input = "t-shirt\r\nhttps://example.com\r\nSize medium\n"
     expected = [
         {"what": "t-shirt", "link": "https://example.com", "details": "Size medium"}
     ]
