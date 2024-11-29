@@ -33,7 +33,7 @@ fastapi run gift_text_parser/main.py
 By default, it runs on localhost port 8000.
 The port can be set by passing `--port <PORT>` to the above command.
 
-### Example Request
+### Parsing Text
 
 To use the API, submit a POST request to the following endpoint with a string of text assigned to `text` in the body:
 
@@ -81,3 +81,20 @@ The parser always treats the first line of a new paragraph as the "what".
 It will determine whether the next additional non-blank line begins with "https://".
 The rest of the lines will be included as details.
 Thus, URLs may be included in the details portion of the gift idea as plain text.
+
+### Parsing a Wish List into Text
+
+The service also provides a route by which to convert a JSON array of gifts into plain text.
+
+`POST http://localhost:8000/parse-json`
+
+Since this is the reverse of the `parse-text` route, the request body should include an object with a key of `data` that has a value of the JSON array wish list.
+It will return a JSON schema in the form:
+
+```json
+{
+  "text": "A gift idea."
+}
+```
+
+Thus, to extract the text in a Fetch API response, use `response.data.text`.
