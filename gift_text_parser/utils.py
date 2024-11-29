@@ -6,6 +6,8 @@ RE_SEP = re.compile(r"\n\n+")
 
 
 def parse_text(text: str) -> list[dict[str, str | None]] | None:
+    # Remove any carriage returns (this is client-OS-dependent).
+    text = re.sub(r"\r", "", text)
     # Split into separate gift ideas based on consecutive newlines.
     if len(text) == 0:
         return None
