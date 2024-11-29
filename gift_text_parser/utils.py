@@ -45,8 +45,10 @@ def parse_extra(text: str) -> tuple[str | None, str | None]:
         text = text.split("\n", maxsplit=1)
         link = text[0]
 
-        if len(text) > 1 and text[1].rstrip():
+        if len(text) > 1:
             details = text[1].rstrip()
+            if details == "":
+                details = None
         else:
             details = None
     else:
