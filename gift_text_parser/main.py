@@ -62,6 +62,12 @@ class GiftsList(pydantic.BaseModel):
     data: list[ParsedGift]
 
 
+class MarkedGifts(pydantic.BaseModel):
+    """Represents a JSON schema of user name's and lists of their gifts."""
+
+    data: dict[str, list[dict]]
+
+
 @app.post("/parse-text", response_model=GiftsList)
 def parse_text(text: InputText):
     if len(text.text) == 0:
@@ -79,3 +85,8 @@ def parse_wishlist(wishlist: Annotated[dict[str, list], GiftsList]):
         return InputText(text="Your wish list is empty.")
     data = [dict(g) for g in wishlist.data]
     return InputText(text=utils.parse_json(data))
+
+
+@app.post("/parse-marked", response_model=InputText)
+def parse_marked_gifts(marked_gifts: MarkedGifts):
+    return InputText(text=utils.parse_marked_gifts(marked_gifts.data))

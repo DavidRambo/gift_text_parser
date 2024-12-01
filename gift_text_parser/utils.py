@@ -72,3 +72,35 @@ def parse_json(wishlist: list[dict[str, str | None]]) -> str:
         result += "\n\n"
 
     return result.rstrip()
+
+
+def parse_marked_gifts(gifts: dict[str, list]) -> str:
+    """Converts a dict of users and the marked gifts associated with them into text.
+
+    Example argument:
+        {
+            "David": [
+                { "id": 1, "what": "t-shirt", "link": None, "details": "size medium" },
+                { "id": 3, "what": "SICP", "link": "https://bookshop.org", "details": None }
+            ],
+            "Ranger": [
+                { "id": 1, "what": "treats", "link": None, "details": None}
+            ]
+        }
+    """
+    result = "Gifts You're Getting Others\n\n"
+
+    for name in gifts:
+        result += (
+            "".join("-" for _ in range(len(name)))
+            + "\n"
+            + name
+            + "\n"
+            + "".join("-" for _ in range(len(name)))
+            + "\n"
+        )
+
+        result += parse_json(gifts[name])
+        result += "\n\n"
+
+    return result.rstrip()

@@ -2,7 +2,7 @@
 
 import pytest
 
-from gift_text_parser.utils import parse_text, parse_json
+from gift_text_parser.utils import parse_text, parse_json, parse_marked_gifts
 
 
 @pytest.mark.parametrize(
@@ -165,3 +165,29 @@ SICP
 https://bookshop.org/p/books/structure-and-interpretation-of-computer-programs-gerald-jay-sussman/11620466?ean=9780262510875
 2nd ed."""
     assert expected == parse_json(input)
+
+
+def test_marked_gifts():
+    input = {
+        "David": [
+            {"id": 1, "what": "t-shirt", "link": None, "details": "size medium"},
+            {"id": 3, "what": "SICP", "link": "https://bookshop.org", "details": None},
+        ],
+        "Ranger": [{"id": 1, "what": "treats", "link": None, "details": None}],
+    }
+    expected = """Gifts You're Getting Others
+
+-----
+David
+-----
+t-shirt
+size medium
+
+SICP
+https://bookshop.org
+
+------
+Ranger
+------
+treats"""
+    assert expected == parse_marked_gifts(input)
